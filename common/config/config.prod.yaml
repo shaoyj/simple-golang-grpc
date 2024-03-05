@@ -1,0 +1,24 @@
+# fbConsul
+fbConsul:
+  address: 172.30.3.11:8500
+  datacenter: aws-prod-consul-01
+
+# rpc
+rpc:
+  api-golang: http://api-golang.service.consul:8080
+  arena: http://arena.service.consul:8080
+
+# mysql
+mysql:
+  dsn: brio:3edc#EDC@tcp(prod.c2jfdgtlpko2.us-east-2.rds.amazonaws.com:3306)/brio?charset=utf8mb4&parseTime=True&loc=Local
+  maxIdleConn: 16
+  maxOpenConn: 16
+  connMaxLifetime: 600
+
+# redis
+redis:
+  db: 6
+  addr: prod.naf2fa.ng.0001.use2.cache.amazonaws.com:6380
+  password: ''
+  readTimeout: 100
+  writeTimeout: 100

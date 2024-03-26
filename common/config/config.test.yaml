@@ -1,5 +1,5 @@
-# fbConsul
-fbConsul:
+# consul
+consul:
   address: 172.30.0.11:8500
   datacenter: aws-staging-nomad-01
 
@@ -10,15 +10,15 @@ rpc:
 
 # mysql
 mysql:
-  dsn: brio:1qaz!QAZ@tcp(staging.c2jfdgtlpko2.us-east-2.rds.amazonaws.com:3306)/brio?charset=utf8mb4&parseTime=True&loc=Local
-  maxIdleConn: 8
-  maxOpenConn: 8
-  connMaxLifetime: 3000
+  dsn: username:pwd@tcp(sqlAddress:3306)/brio?charset=utf8mb4&parseTime=True&loc=Local
+  maxIdleConn: 16
+  maxOpenConn: 16
+  connMaxLifetime: 600
 
 # redis
 redis:
   db: 6
-  addr: 172.30.0.194:6379
-  password: brioredis
+  addr: redisAddress:6379
+  password: pwd
   readTimeout: 1000
   writeTimeout: 1000

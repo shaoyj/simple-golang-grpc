@@ -1,4 +1,4 @@
-package fb_pb
+package pb
 
 import (
 	"context"
@@ -14,7 +14,7 @@ import (
 )
 
 type baseServer struct {
-	execute      grpctransport.Handler
+	execute grpctransport.Handler
 }
 
 func NewBaseServer(baseExecute endpoint.Endpoint, otTracer stdopentracing.Tracer, zipkinTracer *stdzipkin.Tracer, logger log.Logger) BaseServiceServer {

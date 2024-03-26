@@ -4,7 +4,7 @@
 // - protoc             v4.25.1
 // source: base.proto
 
-package fb_pb
+package pb
 
 import (
 	_ "google.golang.org/genproto/googleapis/api/annotations"

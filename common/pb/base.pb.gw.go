@@ -6,7 +6,7 @@ Package api_base is a reverse proxy.
 
 It translates gRPC into RESTful JSON APIs.
 */
-package fb_pb
+package pb
 
 import (
 	"context"

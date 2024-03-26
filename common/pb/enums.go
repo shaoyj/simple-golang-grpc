@@ -1,4 +1,4 @@
-package fb_pb
+package pb
 
 import "strings"
 

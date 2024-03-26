@@ -1,22 +1,22 @@
 # 本机配置
-fbServer:
+Server:
   appName: simple-go-grpc
+  Port: 18081
 
-# fbConsul
-fbConsul:
-  address: 172.30.0.11:8500
-  datacenter: aws-staging-nomad-01
-  token: 90327b5b-9f4b-9112-1fb3-7b84c6f20e57
+# consul
+consul:
+  address: 127.0.0.1:8500
+  token: 123
 
 # rpc
 rpc:
-  api-golang: https://staging-api.freebeatfit.com
+  api-golang: https://domain.com
   arena: 127.0.0.1
   api-server: 127.0.0.1
 
 # mysql
 mysql:
-  dsn: brio:1qaz!QAZ@tcp(staging.c2jfdgtlpko2.us-east-2.rds.amazonaws.com:3306)/brio?charset=utf8mb4&parseTime=True&loc=Local
+  dsn: brio:1qaz!QAZ@tcp(testup8.c2jfdgtlpko2.us-east-2.rds.amazonaws.com:3306)/brio?charset=utf8mb4&parseTime=True&loc=Local
   maxIdleConn: 4
   maxOpenConn: 4
   connMaxLifetime: 3000
@@ -24,8 +24,6 @@ mysql:
 # redis
 redis:
   db: 6
-  # addr: 172.30.0.194:6379
-  # password: brioredis
   addr: 127.0.0.1:6379
   password: ''
   readTimeout: 6000

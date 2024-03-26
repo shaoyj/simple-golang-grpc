@@ -5,7 +5,9 @@ import (
 	"net"
 	"os"
 	"os/signal"
-	"simple-go-grpc/common/fb_pb"
+	"simple-go-grpc/common/config"
+	"simple-go-grpc/common/logs"
+	"simple-go-grpc/common/pb"
 	"syscall"
 	"time"
 
@@ -15,7 +17,10 @@ import (
 )
 
 func main() {
-	Port := "8082"
+	Port := "8080"
+	if config.Instance.Server != nil && config.Instance.Server.Port != "" {
+		Port = config.Instance.Server.Port
+	}
 	address := ":" + Port
 	conn, err := net.Listen("tcp", address)
 	if err != nil {
@@ -24,14 +29,14 @@ func main() {
 	}
 
 	//启动
-	server := fb_pb.InitServer(address, nil, router.BaseEndPointFunc)
-	//fbl.Log().Sugar().Infof("gRPC and http listen on:%s", Port)
+	server := pb.InitServer(address, nil, router.BaseEndPointFunc)
+	logs.NewLog("").Infof("gRPC and http listen on:%s", Port)
 	go func() {
 		//最大连接数
 		conn = netutil.LimitListener(conn, 10000)
 		defer conn.Close()
 		if err = server.Serve(conn); err != nil {
-			//fbl.Log().Sugar().Infof("Listen and Server err: %v", err)
+			logs.NewLog("").Infof("Listen and Server err: %v", err)
 			panic(err)
 		}
 	}()
@@ -44,6 +49,6 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	if err := server.Shutdown(ctx); err != nil {
-		//fbl.Log().Sugar().Fatal(err.Error())
+		logs.NewLog("").Fatal(err.Error())
 	}
 }

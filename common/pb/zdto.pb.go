@@ -4,7 +4,7 @@
 // 	protoc        v4.25.1
 // source: zdto.proto
 
-package fb_pb
+package pb
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -209,8 +209,8 @@ func file_zdto_proto_rawDescGZIP() []byte {
 
 var file_zdto_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_zdto_proto_goTypes = []interface{}{
-	(*ComReq)(nil),     // 0: fb_pb.ComReq
-	(*ByteResult)(nil), // 1: fb_pb.ByteResult
+	(*ComReq)(nil),     // 0: pb.ComReq
+	(*ByteResult)(nil), // 1: pb.ByteResult
 }
 var file_zdto_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

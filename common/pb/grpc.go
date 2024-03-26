@@ -1,4 +1,4 @@
-package fb_pb
+package pb
 
 import (
 	"golang.org/x/net/http2"
@@ -28,7 +28,7 @@ func GrpcHandlerFunc(grpcServer *grpc.Server, otherHandler http.Handler) http.Ha
 				http.Error(w, "No Content", http.StatusNoContent)
 				return
 			}
-			
+
 			otherHandler.ServeHTTP(w, r)
 		}
 	}), &http2.Server{})

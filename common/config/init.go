@@ -10,8 +10,14 @@ import (
 	_ "embed"
 )
 
-// FbConsul consul配置
-type FbConsul struct {
+// Server 配置
+type Server struct {
+	AppName string `mapstructure:"appName" json:"address" yaml:"appName"`
+	Port    string `mapstructure:"port" json:"port" yaml:"port"`
+}
+
+// Consul consul配置
+type Consul struct {
 	Address    string `mapstructure:"address" json:"address" yaml:"address"`
 	Datacenter string `mapstructure:"datacenter" json:"datacenter" yaml:"datacenter"`
 	Token      string `mapstructure:"token" json:"token" yaml:"token"`
@@ -21,7 +27,7 @@ type FbConsul struct {
 type Rpc struct {
 	ApiGolangAddress string `mapstructure:"api-golang" json:"api-golang" yaml:"api-golang"`
 	ArenaAddress     string `mapstructure:"arena" json:"arena" yaml:"arena"`
-	ApiServerAddress     string `mapstructure:"api-server" json:"api-server" yaml:"api-server"`
+	ApiServerAddress string `mapstructure:"api-server" json:"api-server" yaml:"api-server"`
 }
 
 // Mysql mysql配置
@@ -43,7 +49,9 @@ type Redis struct {
 }
 
 type Conf struct {
-	FbConsul *FbConsul `mapstructure:"fbConsul" json:"fbConsul" yaml:"fbConsul"` // fbConsul 配置
+	Server *Server `mapstructure:"server" json:"server" yaml:"server"` // Server 配置
+
+	Consul *Consul `mapstructure:"consul" json:"consul" yaml:"consul"` // Consul 配置
 
 	Rpc *Rpc `mapstructure:"rpc" json:"rpc" yaml:"rpc"` // rpc 配置
 
@@ -85,6 +93,6 @@ func initCf() *Conf {
 	}
 
 	//根据配置参数更新 consul token
-	cf.FbConsul.Token = fbl.FillValOfKey("CONSUL_HTTP_TOKEN", cf.FbConsul.Token)
+	cf.Consul.Token = fbl.FillValOfKey("CONSUL_HTTP_TOKEN", cf.Consul.Token)
 	return cf
 }

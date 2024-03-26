@@ -17,11 +17,3 @@ func TestClient(t *testing.T) {
 	result := FindInfo(context.Background(), req)
 	fmt.Println(result)
 }
-
-func TestClient2(t *testing.T) {
-	var req dto.FbRpcReq
-	req.K1 = 18101029476241408
-	req.K2 = 18101029476241410
-	result := Hello(context.Background(), req)
-	fmt.Println(result)
-}

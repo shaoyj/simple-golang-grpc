@@ -16,6 +16,10 @@ var innerSugarLogger *zap.SugaredLogger
 
 func InitNomadGlobalLog() {
 	zapOnce.Do(func() {
+		// 如果是开发环境，打印到控制台; 如果是服务器 打印日志到文件
+		env := os.Getenv("API_ENV")
+		isEnv := env == "" || env == "dev"
+		// 本地环境 不需要创建日志文件
 		pwdDir, _ := os.Getwd()
 		infoLogFilePath := pwdDir + "/alloc/logs/demo-log-main-task.stdout.0"
 		errLogFilePath := pwdDir + "/alloc/logs/demo-log-main-task.stderr.0"
@@ -64,16 +68,22 @@ func InitNomadGlobalLog() {
 			return lvl == zapcore.ErrorLevel
 		})
 
-		// 获取 info、error日志文件的io.Writer 抽象 getWriter() 在下方实现
-		infoWriter := getWriter(infoLogFilePath)
-		errorWriter := getWriter(errLogFilePath)
-
 		// 最后创建具体的Logger
-		core := zapcore.NewTee(
-			zapcore.NewCore(encoder, zapcore.AddSync(infoWriter), infoLevel),
-			zapcore.NewCore(encoder, zapcore.AddSync(errorWriter), errorLevel),
-		)
-
+		var list []zapcore.Core
+		// 如果是开发环境，打印到控制台; 如果是服务器 打印日志到文件
+		if isEnv {
+			allLevel := zap.LevelEnablerFunc(func(lvl zapcore.Level) bool {
+				return lvl >= zapcore.DebugLevel
+			})
+			list = append(list, zapcore.NewCore(encoder, zapcore.AddSync(io.Writer(os.Stdout)), allLevel))
+		} else {
+			// 获取 info、error日志文件的io.Writer 抽象 getWriter() 在下方实现
+			infoWriter := getWriter(infoLogFilePath)
+			errorWriter := getWriter(errLogFilePath)
+			list = append(list, zapcore.NewCore(encoder, zapcore.AddSync(infoWriter), infoLevel))
+			list = append(list, zapcore.NewCore(encoder, zapcore.AddSync(errorWriter), errorLevel))
+		}
+		core := zapcore.NewTee(list...)
 		logger := zap.New(core, zap.AddCaller()) // 需要传入 zap.AddCaller() 才会显示打日志点的文件名和行数, 有点小坑
 		innerSugarLogger = logger.Sugar().With("appName", serverName)
 	})

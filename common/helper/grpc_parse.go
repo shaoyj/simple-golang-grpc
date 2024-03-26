@@ -1,4 +1,4 @@
-package pb
+package helper
 
 import (
 	"bytes"
@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"io"
 	"reflect"
+	"simple-go-grpc/common/pb"
+	"simple-go-grpc/common/tool"
 
 	"github.com/golang/protobuf/jsonpb"
 	"github.com/golang/protobuf/proto"
@@ -260,7 +262,7 @@ func DisallowUnknownFields() {
 
 // NewDecoder returns a Decoder which reads JSON stream from "r".
 func (j *FbJSONPb) NewDecoder(r io.Reader) runtime.Decoder {
-	var comReq ComReq
+	var comReq pb.ComReq
 	data, _ := io.ReadAll(r)
 	comReq.Body = data
 
@@ -283,10 +285,10 @@ func (j *FbJSONPb) Marshal(v interface{}) ([]byte, error) {
 	}
 
 	// 优化http 请求返回结构体
-	if data, ok := v.(*ByteResult); ok {
+	if data, ok := v.(*pb.ByteResult); ok {
 		finalStr := bytes.Buffer{}
 		finalStr.WriteString("{\"code\":")
-		finalStr.WriteString(ToString(data.Code))
+		finalStr.WriteString(tool.ToString(data.Code))
 		finalStr.WriteString(",\"msg\":\"")
 		finalStr.WriteString(data.Msg)
 		finalStr.WriteString("\"")

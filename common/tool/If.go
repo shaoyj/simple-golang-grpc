@@ -1,4 +1,4 @@
-package pb
+package tool
 
 func If[T any](condition bool, trueVal, falseVal T) T {
 	if condition {

@@ -1,9 +1,11 @@
-package pb
+package helper
 
 import (
 	"context"
 	"encoding/json"
 	"errors"
+	"simple-go-grpc/common/pb"
+	"simple-go-grpc/common/tool"
 
 	"strings"
 )
@@ -36,8 +38,8 @@ func (rpcRh *RpcRouterHelper) FindFbRpcFunc(target, method string) (FbRpcFunc, e
 	return nil, errors.New("routing path that does not exist")
 }
 
-func (rpcRh *RpcRouterHelper) ParseByteResult(res *FbResponse) *ByteResult {
-	var finalRes ByteResult
+func (rpcRh *RpcRouterHelper) ParseByteResult(res *tool.FbResponse) *pb.ByteResult {
+	var finalRes pb.ByteResult
 	//code !=0
 	if res.Code != 0 {
 		finalRes.Code = res.Code
@@ -61,8 +63,8 @@ func (rpcRh *RpcRouterHelper) ParseByteResult(res *FbResponse) *ByteResult {
 }
 
 // RpcFuncHandler 解析 rpc函数返回
-func (rpcRh *RpcRouterHelper) RpcFuncHandler(ctx context.Context, req *ComReq) *ByteResult {
-	var finalRes ByteResult
+func (rpcRh *RpcRouterHelper) RpcFuncHandler(ctx context.Context, req *pb.ComReq) *pb.ByteResult {
+	var finalRes pb.ByteResult
 	//parse funcRpc
 	funcRpc, rpcErr := rpcRh.FindFbRpcFunc(strings.ToLower(req.Target), req.Method)
 	if rpcErr != nil {
@@ -79,10 +81,10 @@ func (rpcRh *RpcRouterHelper) RpcFuncHandler(ctx context.Context, req *ComReq) *
 }
 
 func (rpcRh *RpcRouterHelper) RpcHandler(ctx context.Context, request interface{}) (response interface{}, err error) {
-	var finalRes ByteResult
+	var finalRes pb.ByteResult
 
 	//参数类型校验
-	req, ok := request.(*ComReq)
+	req, ok := request.(*pb.ComReq)
 	if !ok {
 		finalRes.Code = -1
 		finalRes.Msg = "Unsupported parameter type"

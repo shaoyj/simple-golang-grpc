@@ -14,12 +14,11 @@ rpc:
   arena: 127.0.0.1
   api-server: 127.0.0.1
 
-# mysql
 mysql:
-  dsn: user:pwd@tcp(sqlAddress:3306)/brio?charset=utf8mb4&parseTime=True&loc=Local
-  maxIdleConn: 4
-  maxOpenConn: 4
-  connMaxLifetime: 3000
+  dsn: username:pwd@tcp(sqlAddress:3306)/brio?charset=utf8mb4&parseTime=True&loc=Local
+  maxIdleConn: 16
+  maxOpenConn: 16
+  connMaxLifetime: 600
 
 # redis
 redis:

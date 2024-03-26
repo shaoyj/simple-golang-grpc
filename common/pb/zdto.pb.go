@@ -209,8 +209,8 @@ func file_zdto_proto_rawDescGZIP() []byte {
 
 var file_zdto_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_zdto_proto_goTypes = []interface{}{
-	(*ComReq)(nil),     // 0: pb.ComReq
-	(*ByteResult)(nil), // 1: pb.ByteResult
+	(*ComReq)(nil),     // 0: tool.ComReq
+	(*ByteResult)(nil), // 1: tool.ByteResult
 }
 var file_zdto_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

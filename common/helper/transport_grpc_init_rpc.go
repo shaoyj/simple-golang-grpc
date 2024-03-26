@@ -1,7 +1,9 @@
-package pb
+package helper
 
 import (
 	"os"
+	"simple-go-grpc/common/pb"
+	"simple-go-grpc/common/tool"
 
 	"github.com/go-kit/kit/endpoint"
 	"github.com/go-kit/kit/log"
@@ -21,8 +23,8 @@ func initRpc(server *grpc.Server, baseExecute endpoint.Endpoint) {
 		logger = log.With(logger, "ts", log.DefaultTimestampUTC)
 		logger = log.With(logger, "caller", log.DefaultCaller)
 	}
-	zipkinBridge := ToPtr(false)
-	zipkinURL := ToPtr("")
+	zipkinBridge := tool.ToPtr(false)
+	zipkinURL := tool.ToPtr("")
 
 	var zipkinTracer *zipkin.Tracer
 	{
@@ -58,5 +60,5 @@ func initRpc(server *grpc.Server, baseExecute endpoint.Endpoint) {
 	}
 
 	//register baseServer
-	RegisterBaseServiceServer(server, NewBaseServer(baseExecute, tracer, zipkinTracer, logger))
+	pb.RegisterBaseServiceServer(server, NewBaseServer(baseExecute, tracer, zipkinTracer, logger))
 }

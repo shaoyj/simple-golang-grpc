@@ -1,4 +1,4 @@
-package pb
+package tool
 
 import (
 	"encoding/json"

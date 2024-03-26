@@ -6,8 +6,8 @@ import (
 	"os"
 	"os/signal"
 	"simple-go-grpc/common/config"
+	"simple-go-grpc/common/helper"
 	"simple-go-grpc/common/logs"
-	"simple-go-grpc/common/pb"
 	"syscall"
 	"time"
 
@@ -29,7 +29,7 @@ func main() {
 	}
 
 	//启动
-	server := pb.InitServer(address, nil, router.BaseEndPointFunc)
+	server := helper.InitServer(address, nil, router.BaseEndPointFunc)
 	logs.NewLog("").Infof("gRPC and http listen on:%s", Port)
 	go func() {
 		//最大连接数

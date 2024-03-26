@@ -1,7 +1,8 @@
-package pb
+package helper
 
 import (
 	"context"
+	"simple-go-grpc/common/pb"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
@@ -15,7 +16,7 @@ func initGw(address string, dialOpt []grpc.DialOption) *runtime.ServeMux {
 		&FbJSONPb{OrigName: true, EmitDefaults: true}))
 
 	// base
-	if err := RegisterBaseServiceHandlerFromEndpoint(ctx, gateWayMux, address, dialOpt); err != nil {
+	if err := pb.RegisterBaseServiceHandlerFromEndpoint(ctx, gateWayMux, address, dialOpt); err != nil {
 		panic(err)
 	}
 

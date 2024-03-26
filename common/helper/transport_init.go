@@ -1,4 +1,4 @@
-package pb
+package helper
 
 import (
 	"context"
@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"google.golang.org/grpc/metadata"
 	"simple-go-grpc/common/logs"
+	"simple-go-grpc/common/pb"
+	"simple-go-grpc/common/tool"
 	"time"
 
 	"github.com/go-kit/kit/endpoint"
@@ -31,18 +33,18 @@ func InitServer(address string, tlsConfig *tls.Config, baseExecute endpoint.Endp
 			traceId := ""
 			md, ok := metadata.FromIncomingContext(ctx)
 			if ok {
-				traceIdList := md.Get(RequestIdKey.Val())
+				traceIdList := md.Get(tool.RequestIdKey.Val())
 				if len(traceIdList) > 0 {
 					traceId = traceIdList[0]
 				}
 			}
 			//header
-			comReq, ok := req.(ComReq)
+			comReq, ok := req.(pb.ComReq)
 			if ok && len(comReq.Headers) > 2 && traceId == "" {
 				var headerMap map[string]string
 				jsonErr := json.Unmarshal(comReq.Headers, &headerMap)
 				if jsonErr != nil {
-					reqId, ok := headerMap[RequestIdKey.Val()]
+					reqId, ok := headerMap[tool.RequestIdKey.Val()]
 					if ok {
 						traceId = reqId
 					}

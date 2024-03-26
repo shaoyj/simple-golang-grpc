@@ -1,4 +1,4 @@
-package pb
+package tool
 
 type FbResponse struct {
 	Code int32  `json:"code"`

@@ -40,8 +40,8 @@ var file_base_proto_rawDesc = []byte{
 }
 
 var file_base_proto_goTypes = []interface{}{
-	(* ComReq)(nil),     // 0: ComReq
-	(* ByteResult)(nil), // 1: ByteResult
+	(*ComReq)(nil),     // 0: ComReq
+	(*ByteResult)(nil), // 1: ByteResult
 }
 var file_base_proto_depIdxs = []int32{
 	0, // 0: api_base.BaseService.execute:input_type -> ComReq

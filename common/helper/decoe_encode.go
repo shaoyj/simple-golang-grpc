@@ -1,8 +1,10 @@
-package pb
+package helper
 
 import (
 	"context"
 	"encoding/json"
+	"simple-go-grpc/common/pb"
+	"simple-go-grpc/common/tool"
 )
 
 func DecodeDefault(ctx context.Context, req interface{}) (request interface{}, err error) {
@@ -10,13 +12,13 @@ func DecodeDefault(ctx context.Context, req interface{}) (request interface{}, e
 	return
 }
 func EncodeDefault(ctx context.Context, rep interface{}) (response interface{}, err error) {
-	var res ByteResult
-	firstRes, ok := rep.(*ByteResult)
+	var res pb.ByteResult
+	firstRes, ok := rep.(*pb.ByteResult)
 	if ok {
 		return firstRes, nil
 	}
 
-	data := rep.(Result)
+	data := rep.(tool.Result)
 	res.Code = data.Code
 	res.Msg = data.Msg
 

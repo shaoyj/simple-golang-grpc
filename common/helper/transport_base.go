@@ -1,7 +1,8 @@
-package pb
+package helper
 
 import (
 	"context"
+	"simple-go-grpc/common/pb"
 
 	"github.com/go-kit/kit/endpoint"
 	"github.com/go-kit/kit/log"
@@ -17,7 +18,7 @@ type baseServer struct {
 	execute grpctransport.Handler
 }
 
-func NewBaseServer(baseExecute endpoint.Endpoint, otTracer stdopentracing.Tracer, zipkinTracer *stdzipkin.Tracer, logger log.Logger) BaseServiceServer {
+func NewBaseServer(baseExecute endpoint.Endpoint, otTracer stdopentracing.Tracer, zipkinTracer *stdzipkin.Tracer, logger log.Logger) pb.BaseServiceServer {
 	options := []grpctransport.ServerOption{
 		grpctransport.ServerErrorHandler(transport.NewLogErrorHandler(logger)),
 	}
@@ -37,7 +38,7 @@ func NewBaseServer(baseExecute endpoint.Endpoint, otTracer stdopentracing.Tracer
 
 }
 
-func (s *baseServer) Execute(ctx context.Context, request *ComReq) (*ByteResult, error) {
+func (s *baseServer) Execute(ctx context.Context, request *pb.ComReq) (*pb.ByteResult, error) {
 	_, rep, err := s.execute.ServeGRPC(ctx, request)
-	return rep.(*ByteResult), err
+	return rep.(*pb.ByteResult), err
 }

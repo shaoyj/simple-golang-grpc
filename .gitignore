@@ -154,7 +154,7 @@ exe
 main
 stderr.log
 stdout.log
-#pb.sh
+#tool.sh
 docker-build.env
 go.sum
 swagger

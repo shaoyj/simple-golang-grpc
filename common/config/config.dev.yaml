@@ -16,7 +16,7 @@ rpc:
 
 # mysql
 mysql:
-  dsn: brio:1qaz!QAZ@tcp(testup8.c2jfdgtlpko2.us-east-2.rds.amazonaws.com:3306)/brio?charset=utf8mb4&parseTime=True&loc=Local
+  dsn: user:pwd@tcp(sqlAddress:3306)/brio?charset=utf8mb4&parseTime=True&loc=Local
   maxIdleConn: 4
   maxOpenConn: 4
   connMaxLifetime: 3000

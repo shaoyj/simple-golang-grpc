@@ -156,6 +156,7 @@ stderr.log
 stdout.log
 #tool.sh
 docker-build.env
+config.dev.yaml
 go.sum
 swagger
 __debug_bin
